@@ -13,6 +13,7 @@ This is a next-generation governance layer built on Futarchy principles that ena
 - **💰 Economic Incentives**: Integrated with Bankr for sustainable economic participation
 - **🧠 Autonomous Evolution**: Governance parameters self-adjust based on performance metrics
 - **📦 Product Focus**: Every proposal must deliver tangible products/outcomes
+- **💳 Self-Sovereign Wallet**: Integrated EVM wallet for multi-chain token management and governance participation
 
 ## 🏗️ System Architecture
 
@@ -51,6 +52,25 @@ This is a next-generation governance layer built on Futarchy principles that ena
 - **agent_registration_system.py** - Autonomous AI agent recruitment and onboarding
 - **registration_api_server.py** - Web portal and API for agent signup
 - **deploy_governance.py** - Deployment and configuration scripts
+
+### EVM Wallet Integration
+
+The platform includes a self-sovereign EVM wallet skill that enables:
+
+- **💳 Multi-chain Support**: Base, Ethereum, Polygon, Arbitrum, Optimism
+- **🪙 Token Management**: Check balances, send ETH/ERC20 tokens
+- **🔄 Token Swaps**: Trade tokens via Odos DEX aggregator
+- **📄 Smart Contract Interaction**: Read/write governance contract functions
+- **🔐 Local Key Storage**: Private keys stored locally, no cloud custody
+
+**Wallet Features for Governance:**
+- Check governance token balances across chains
+- Submit votes via smart contract calls
+- Participate in prediction markets with token stakes
+- Manage treasury operations and multi-sig transactions
+- Automatic reward distribution from successful predictions
+
+See [docs/wallet-integration.md](docs/wallet-integration.md) for complete integration details.
 
 ## 🛠️ Installation & Setup
 
