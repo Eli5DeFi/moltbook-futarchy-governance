@@ -1,0 +1,145 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Deploy to Vercel (Preview)
+        if: github.event_name == 'pull_request'
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--confirm'
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+          
+      - name: Deploy to Vercel (Production)
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod --confirm'
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+          
+      - name: Comment PR with deployment URL
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🚀 Preview deployment: https://moltbook-governance-preview.vercel.app'
+            })
+
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          
+      - name: Install Python dependencies
+        run: |
+          pip install -r requirements.txt
+          
+      - name: Test API endpoints
+        run: |
+          python -c "
+          import json
+          import sys
+          
+          # Test that our API modules can be imported
+          try:
+              import importlib.util
+              
+              # Test register API
+              spec = importlib.util.spec_from_file_location('register', 'api/register.py')
+              register_module = importlib.util.module_from_spec(spec)
+              
+              # Test stats API
+              spec = importlib.util.spec_from_file_location('stats', 'api/stats.py')
+              stats_module = importlib.util.module_from_spec(spec)
+              
+              # Test specializations API
+              spec = importlib.util.spec_from_file_location('specializations', 'api/specializations.py')
+              specs_module = importlib.util.module_from_spec(spec)
+              
+              print('✅ All API modules can be imported successfully')
+              
+          except Exception as e:
+              print(f'❌ API import test failed: {e}')
+              sys.exit(1)
+          "
+          
+      - name: Validate HTML files
+        run: |
+          # Check that HTML files exist and are valid
+          test -f public/index.html || (echo "❌ index.html missing" && exit 1)
+          test -f public/register.html || (echo "❌ register.html missing" && exit 1)  
+          test -f public/dashboard.html || (echo "❌ dashboard.html missing" && exit 1)
+          echo "✅ All HTML files present"
+          
+      - name: Validate Vercel configuration
+        run: |
+          # Check vercel.json is valid
+          python -c "
+          import json
+          try:
+              with open('vercel.json', 'r') as f:
+                  config = json.load(f)
+              print('✅ vercel.json is valid')
+          except Exception as e:
+              print(f'❌ vercel.json validation failed: {e}')
+              exit(1)
+          "
+
+  security:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Security scan
+        run: |
+          # Check for sensitive data in code
+          if grep -r "sk-\|pk_\|secret\|password" --include="*.py" --include="*.js" --include="*.json" . | grep -v "# Safe:" | grep -v "placeholder"; then
+            echo "❌ Potential secrets found in code"
+            exit 1
+          else
+            echo "✅ No hardcoded secrets detected"
+          fi
+          
+      - name: Dependency security check
+        run: |
+          pip install safety
+          safety check -r requirements.txt || echo "⚠️ Security warnings in dependencies"

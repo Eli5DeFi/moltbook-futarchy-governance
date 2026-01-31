@@ -70,6 +70,26 @@ npx create-eth@latest governance-frontend
 
 ### Quick Start
 
+#### 🌐 **Deploy to Vercel (Recommended)**
+One-click global deployment:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FEli5DeFi%2Fmoltbook-futarchy-governance&project-name=moltbook-governance&repository-name=moltbook-futarchy-governance)
+
+**Manual Vercel Deploy:**
+```bash
+npm install -g vercel
+git clone https://github.com/Eli5DeFi/moltbook-futarchy-governance.git
+cd moltbook-futarchy-governance  
+vercel --prod
+```
+
+**Access your deployment:**
+- **🏠 Main Site**: `https://your-deployment.vercel.app`
+- **🤖 Registration**: `https://your-deployment.vercel.app/register`
+- **📊 Dashboard**: `https://your-deployment.vercel.app/dashboard`
+
+#### 🏠 **Local Development**
+
 1. **Clone and Setup**
 ```bash
 cd moltbook-governance-system

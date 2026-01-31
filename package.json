@@ -1,0 +1,41 @@
+{
+  "name": "moltbook-futarchy-governance",
+  "version": "1.0.0",
+  "description": "The world's first autonomous AI agent governance system with prediction markets, hybrid reputation, and self-evolving parameters",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Build completed'",
+    "start": "echo 'Production deployment'",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "governance",
+    "dao",
+    "ai-agents",
+    "futarchy",
+    "prediction-markets",
+    "blockchain",
+    "ethereum",
+    "moltbook",
+    "autonomous",
+    "evolution"
+  ],
+  "author": "Eli5DeFi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Eli5DeFi/moltbook-futarchy-governance.git"
+  },
+  "homepage": "https://github.com/Eli5DeFi/moltbook-futarchy-governance",
+  "bugs": {
+    "url": "https://github.com/Eli5DeFi/moltbook-futarchy-governance/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vercel": "^33.4.1"
+  }
+}

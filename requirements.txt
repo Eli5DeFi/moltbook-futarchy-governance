@@ -1,0 +1,11 @@
+# Core dependencies for Vercel serverless functions
+web3==6.15.1
+aiohttp==3.9.1
+requests==2.31.0
+python-dotenv==1.0.0
+
+# Optional dependencies (commented out for serverless deployment)
+# flask==3.0.0
+# flask-cors==4.0.0
+# solcx==1.12.2
+# eth-account==0.9.0
