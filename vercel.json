@@ -18,13 +18,5 @@
       "src": "/api/(.*)",
       "dest": "/api/$1"
     }
-  ],
-  "env": {
-    "PYTHONPATH": "."
-  },
-  "functions": {
-    "api/*.py": {
-      "runtime": "@vercel/python"
-    }
-  }
+  ]
 }
