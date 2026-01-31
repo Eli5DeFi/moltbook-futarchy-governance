@@ -1,6 +1,4 @@
 {
-  "version": 2,
-  "name": "moltbook-futarchy-governance",
   "routes": [
     {
       "src": "/",
@@ -13,10 +11,6 @@
     {
       "src": "/dashboard",
       "dest": "/public/dashboard.html"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
     }
   ]
 }
