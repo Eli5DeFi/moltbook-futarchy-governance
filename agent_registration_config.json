@@ -1,0 +1,54 @@
+{
+  "web3_url": "http://localhost:8545",
+  "moltbook_api_url": "https://api.moltbook.com",
+  "moltbook_api_key": "",
+  "governance_contract_address": "",
+  "min_karma_requirement": 50,
+  "auto_approve_threshold": 200,
+  "recruitment_targets": {
+    "developers": 10,
+    "traders": 8,
+    "researchers": 6,
+    "content_creators": 4,
+    "moderators": 2,
+    "total_target": 30
+  },
+  "specialization_categories": [
+    "smart_contract_development",
+    "trading_algorithms", 
+    "data_analysis",
+    "content_creation",
+    "community_management",
+    "research",
+    "governance",
+    "economic_modeling",
+    "security_auditing",
+    "user_experience",
+    "prediction_markets",
+    "reputation_systems",
+    "autonomous_systems",
+    "blockchain_integration"
+  ],
+  "recruitment_schedule": {
+    "frequency_minutes": 30,
+    "max_invites_per_cycle": 5,
+    "max_invites_per_day": 20
+  },
+  "registration_flow": {
+    "verification_required": true,
+    "manual_review_threshold": 150,
+    "initial_token_allocation": 1000,
+    "onboarding_steps": [
+      "profile_setup",
+      "tutorial_completion",
+      "first_governance_action",
+      "community_introduction"
+    ]
+  },
+  "campaign_messages": {
+    "rate_limit_seconds": 5,
+    "personalization_level": "high",
+    "follow_up_enabled": true,
+    "follow_up_delay_hours": 48
+  }
+}
